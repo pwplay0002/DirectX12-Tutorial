@@ -17,12 +17,15 @@
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    D3D* _d3d;
+    D3D* _d3d = reinterpret_cast<D3D*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
     switch (message)
     {
     case WM_PAINT:
     {
-        //_d3d->OnInitialize
+        if (_d3d)
+        {
+            _d3d->Render();
+        }
         //PAINTSTRUCT ps;
         //HDC hdc = BeginPaint(hWnd, &ps);
         //// TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
@@ -32,11 +35,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     break;
     case WM_DESTROY:
         PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
+        break;        
     }
-    return 0;
+    return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 Window* Window::GetInst()
@@ -93,7 +94,7 @@ int Window::MainLoop(D3D* d3d)
     InitInstance();
     UpdateWindow(m_window);
     ShowWindow(m_window, SW_SHOW);
-
+    d3d->Render();
     MSG msg = { 0 };
     while (msg.message != WM_QUIT)
     {
@@ -104,7 +105,8 @@ int Window::MainLoop(D3D* d3d)
         }
         else
         {
-            d3d->Update();
+            //d3d->Update();
+            //d3d->Render();
         }
     }
 

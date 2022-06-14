@@ -82,8 +82,6 @@ protected:
 	Microsoft::WRL::ComPtr<ID3D12Resource> m_swapChainBuffer[m_swapChainBufferCount] = { nullptr, };
 	Microsoft::WRL::ComPtr<ID3D12Resource> m_depthStencilBuffer = nullptr;
 	
-	Microsoft::WRL::ComPtr<ID3D12Resource> m_renderTargets[m_swapChainBufferCount];
-
 	// Synchronization objects.
 	UINT m_frameIndex = 0;
 	Microsoft::WRL::ComPtr<ID3D12Fence> m_fence = nullptr;

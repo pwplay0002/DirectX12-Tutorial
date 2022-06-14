@@ -218,7 +218,7 @@ void D3D::CreateCommandObjects()
 	// Start off in a closed state.  This is because the first time we refer 
 	// to the command list we will Reset it, and it needs to be closed before
 	// calling Reset.
-	m_commandList->Close();
+	ThrowIfFailed(m_commandList->Close());
 }
 
 void D3D::CreateSwapChain(Window* window)
